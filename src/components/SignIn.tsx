@@ -1,65 +1,72 @@
 import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { Form, Formik } from 'formik';
 import React, { useState } from 'react';
 import { auth } from '../firebase/firebase-config';
+import { schema } from '../utils/shema';
+import MyTextInput from './MyTextInput';
+
+interface initialValuesInterface {
+	email: string;
+	password: string;
+	passwordCopy: string;
+}
+const initialValues: initialValuesInterface = {
+	email: '',
+	password: '',
+	passwordCopy: '',
+};
 
 const SignIn: React.FC = () => {
-	const [email, setEmail] = useState<string>('');
-	const [password, setPassword] = useState<string>('');
-	const [passwordCopy, setPasswordCopy] = useState<string>('');
 	const [error, setError] = useState<string | null>(null);
-	const handlerSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-		event.preventDefault();
-		if (passwordCopy !== password) {
+
+	const handlerSubmit = async (data: initialValuesInterface) => {
+		if (data.password !== data.passwordCopy) {
 			setError("passwords didn't match");
 			return 0;
 		}
-		createUserWithEmailAndPassword(auth, email, password)
-			.then(user => {
-				console.log(user);
-				setEmail('');
-				setPassword('');
-				setPasswordCopy('');
-			})
-			.catch(error => console.log(error));
+		try {
+			const user = await createUserWithEmailAndPassword(
+				auth,
+				data.email,
+				data.password
+			);
+			console.log(user);
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	return (
 		<div className='register'>
 			<h2>Register</h2>
-			<form onSubmit={handlerSubmit}>
-				<label htmlFor='signEmail'>
-					Email:
-					<input
+			<Formik
+				onSubmit={handlerSubmit}
+				initialValues={initialValues}
+				validationSchema={schema}
+			>
+				<Form>
+					<MyTextInput
+						label='Email:'
+						name='email'
 						placeholder='Enter email address'
-						onChange={e => setEmail(e.target.value)}
 						type='email'
-						id='signEmail'
-						value={email}
 					/>
-				</label>
-				<label htmlFor='signPassword'>
-					Password:
-					<input
+					<MyTextInput
+						label='Password:'
+						name='password'
 						placeholder='Enter password'
-						onChange={e => setPassword(e.target.value)}
 						type='password'
-						id='signPassword'
-						value={password}
 					/>
-				</label>
-				<label htmlFor='signPasswordCopy'>
-					Repeat your password:
-					<input
-						placeholder='Repeat password'
-						onChange={e => setPasswordCopy(e.target.value)}
+					<MyTextInput
+						label='Repeat your password:'
+						name='passwordCopy'
+						placeholder='Enter password one more'
 						type='password'
-						id='signPasswordCopy'
-						value={passwordCopy}
 					/>
-				</label>
-				<button>Create</button>
-				{error ? <p>{error}</p> : ''}
-			</form>
+					<button type='submit'>Create</button>
+					{error ? <p>{error}</p> : ''}
+				</Form>
+			</Formik>
 		</div>
 	);
 };
