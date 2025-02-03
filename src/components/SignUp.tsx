@@ -1,8 +1,9 @@
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { Form, Formik } from 'formik';
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 import { auth } from '../firebase/firebase-config';
-import { schema } from '../utils/shema';
+import { schemaLogin } from '../utils/shema';
 import MyTextInput from './MyTextInput';
 
 interface initialValuesInterface {
@@ -15,16 +16,23 @@ const initialValues: initialValuesInterface = {
 };
 const SignUp: React.FC = () => {
 	const [error, setError] = useState<string | null>(null);
-	const handlerLogin = async (values: initialValuesInterface) => {
+	const handlerLogin = async (
+		values: initialValuesInterface,
+		{ resetForm }: any
+	) => {
 		try {
 			const user = await signInWithEmailAndPassword(
 				auth,
 				values.email,
 				values.password
 			);
+
 			console.log(user);
+			toast('🦄 Wow so easy!');
+			resetForm();
 		} catch (error) {
 			console.log(error);
+			toast('Sorry we can`t find your account');
 			setError("Sorry we can't find your account");
 		}
 	};
@@ -34,7 +42,7 @@ const SignUp: React.FC = () => {
 			<h2>LogIn</h2>
 			<Formik
 				initialValues={initialValues}
-				validationSchema={schema}
+				validationSchema={schemaLogin}
 				onSubmit={handlerLogin}
 			>
 				<Form>

@@ -1,6 +1,7 @@
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { Form, Formik } from 'formik';
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 import { auth } from '../firebase/firebase-config';
 import { schema } from '../utils/shema';
 import MyTextInput from './MyTextInput';
@@ -19,9 +20,13 @@ const initialValues: initialValuesInterface = {
 const SignIn: React.FC = () => {
 	const [error, setError] = useState<string | null>(null);
 
-	const handlerSubmit = async (data: initialValuesInterface) => {
+	const handlerSubmit = async (
+		data: initialValuesInterface,
+		{ resetForm }: any
+	) => {
 		if (data.password !== data.passwordCopy) {
 			setError("passwords didn't match");
+			toast('passwords didn`t match');
 			return 0;
 		}
 		try {
@@ -31,8 +36,11 @@ const SignIn: React.FC = () => {
 				data.password
 			);
 			console.log(user);
+			toast('User is created successfully');
+			resetForm();
 		} catch (error) {
 			console.log(error);
+			toast(`err: ${error}`);
 		}
 	};
 

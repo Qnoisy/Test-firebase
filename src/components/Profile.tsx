@@ -1,5 +1,6 @@
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import { auth } from '../firebase/firebase-config';
 
 const Profile: React.FC = () => {
@@ -8,9 +9,11 @@ const Profile: React.FC = () => {
 		signOut(auth)
 			.then(() => {
 				console.log('User has signed out');
+				toast('User has signed out');
 			})
 			.catch(err => {
 				console.log(err);
+				toast(`err: ${err}`);
 			});
 	};
 	useEffect(() => {
