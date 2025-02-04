@@ -1,10 +1,24 @@
-import { deleteUser, onAuthStateChanged, signOut } from 'firebase/auth';
+import {
+	deleteUser,
+	onAuthStateChanged,
+	sendPasswordResetEmail,
+	signOut,
+} from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { auth } from '../firebase/firebase-config';
 
 const Profile: React.FC = () => {
 	const [authUser, setAuthUser] = useState<any>(null);
+	const resetPassword = async () => {
+		try {
+			await sendPasswordResetEmail(auth, authUser.email);
+			toast('we send password reset email');
+		} catch (err: any) {
+			console.error('Error sending password reset email:', err);
+			toast(`Error:`, err);
+		}
+	};
 	const removeAccount = async () => {
 		try {
 			await deleteUser(authUser);
@@ -36,8 +50,11 @@ const Profile: React.FC = () => {
 		<div className='profile'>
 			{authUser && <h2>{`Welcome, ${authUser.email}`}</h2>}
 			{authUser && <button onClick={handlerLogout}>Sign Out</button>}
-			<br />
-			{authUser && <button onClick={removeAccount}>Delete account</button>}
+			<p>
+				{authUser && <button onClick={removeAccount}>Delete account</button>}
+
+				{authUser && <button onClick={resetPassword}>Reset Password</button>}
+			</p>
 		</div>
 	);
 };
