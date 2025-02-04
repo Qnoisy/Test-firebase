@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import { auth } from '../firebase/firebase-config';
 import { schema } from '../utils/shema';
 import MyTextInput from './MyTextInput';
+import SignInWithGoogle from './SignInWithGoogle';
 
 interface initialValuesInterface {
 	email: string;
@@ -75,6 +76,8 @@ const SignIn: React.FC = () => {
 					{error ? <p>{error}</p> : ''}
 				</Form>
 			</Formik>
+			<br />
+			<SignInWithGoogle />
 		</div>
 	);
 };
