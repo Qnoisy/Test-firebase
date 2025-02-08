@@ -1,3 +1,86 @@
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+*,
+*::before,
+*::after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+:focus,
+:active {
+  outline: none;
+}
+
+a:focus,
+a:active {
+  outline: none;
+}
+
+nav,
+footer,
+header,
+aside {
+  display: block;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  font-size: 100%;
+  line-height: 1;
+  font-size: 16px;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+input,
+button,
+textarea {
+  font-family: inherit;
+}
+
+input::-ms-clear {
+  display: none
+}
+
+button {
+  cursor: pointer;
+}
+
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+a,
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+ul li {
+  list-style: none;
+}
+
+img {
+  vertical-align: top;
+}
+
+
+/* ---------------------------------------------- */
+
+
 body {
   font-family: 'Arial', sans-serif;
   background-color: #f9f9f9;
@@ -59,4 +142,37 @@ button:hover {
 span {
   color: red;
   font-size: 12px;
+}
+
+h2 {
+  margin-bottom: 1rem;
+}
+
+.app__link {
+  margin-top: 10px;
+  color: #333;
+  cursor: pointer;
+  background: #007bff6b;
+  padding: 0.5rem;
+  border-radius: 0.2rem;
+  width: 5rem;
+  text-align: center;
+}
+
+.app__link--text {
+  color: white;
+  text-decoration: none;
+}
+
+.app__list {
+  width: 300px;
+  margin: 1rem auto;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.btn {
+  margin: 0.5rem;
 }

@@ -49,11 +49,23 @@ const Profile: React.FC = () => {
 	return (
 		<div className='profile'>
 			{authUser && <h2>{`Welcome, ${authUser.email}`}</h2>}
-			{authUser && <button onClick={handlerLogout}>Sign Out</button>}
+			{authUser && (
+				<button className='btn' onClick={handlerLogout}>
+					Sign Out
+				</button>
+			)}
 			<p>
-				{authUser && <button onClick={removeAccount}>Delete account</button>}
+				{authUser && (
+					<button className='btn' onClick={removeAccount}>
+						Delete account
+					</button>
+				)}
 
-				{authUser && <button onClick={resetPassword}>Reset Password</button>}
+				{authUser && (
+					<button className='btn' onClick={resetPassword}>
+						Reset Password
+					</button>
+				)}
 			</p>
 		</div>
 	);
