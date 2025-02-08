@@ -4,6 +4,7 @@ import './App.css';
 import Profile from './components/Profile';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
+import Main from './components/main';
 
 interface RouteInterface {
 	path: string;
@@ -11,10 +12,10 @@ interface RouteInterface {
 }
 
 const publicRoutes: RouteInterface[] = [
-	{ path: '/', component: Profile },
+	{ path: '/', component: Main },
 	{ path: '/signIn', component: SignIn },
-	{ path: '/profile', component: Profile },
 	{ path: '/signUp', component: SignUp },
+	{ path: '/profile', component: Profile },
 ];
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
 				{publicRoutes.map((route, index) => (
 					<Route key={index} path={route.path} element={<route.component />} />
 				))}
+				<Route path='*' element={<Main />} />
 			</Routes>
 		</div>
 	);
