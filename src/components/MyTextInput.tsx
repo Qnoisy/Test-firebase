@@ -10,7 +10,9 @@ const MyTextInput: React.FC<MyTextInputInterface> = ({ label, ...props }) => {
 
 	return (
 		<>
-			<label htmlFor={props.id || props.name}>{label}</label>
+			<label style={{ textAlign: 'center' }} htmlFor={props.id || props.name}>
+				{label}
+			</label>
 			<input {...field} {...props} />
 			{meta.touched && meta.error ? (
 				<span style={{ color: 'red', fontSize: '12px' }}>{meta.error}</span>

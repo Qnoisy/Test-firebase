@@ -1,10 +1,12 @@
 import { FC } from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
 import './App.css';
+import Main from './components/main';
 import Profile from './components/Profile';
+import ReadData from './components/ReadData';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
-import Main from './components/main';
+import WriteDataBase from './components/WriteDatabase';
 
 interface RouteInterface {
 	path: string;
@@ -16,6 +18,8 @@ const publicRoutes: RouteInterface[] = [
 	{ path: '/signIn', component: SignIn },
 	{ path: '/signUp', component: SignUp },
 	{ path: '/profile', component: Profile },
+	{ path: '/write', component: WriteDataBase },
+	{ path: '/read', component: ReadData },
 ];
 
 function App() {
