@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { Bounce, ToastContainer } from 'react-toastify';
@@ -9,22 +8,20 @@ const root = ReactDOM.createRoot(
 	document.getElementById('root') as HTMLElement
 );
 root.render(
-	<React.StrictMode>
-		<BrowserRouter>
-			<ToastContainer
-				position='bottom-right'
-				autoClose={5000}
-				hideProgressBar={false}
-				newestOnTop={false}
-				closeOnClick={false}
-				rtl={false}
-				pauseOnFocusLoss
-				draggable
-				pauseOnHover
-				theme='light'
-				transition={Bounce}
-			/>
-			<App />
-		</BrowserRouter>
-	</React.StrictMode>
+	<BrowserRouter>
+		<ToastContainer
+			position='bottom-right'
+			autoClose={5000}
+			hideProgressBar={false}
+			newestOnTop={false}
+			closeOnClick={false}
+			rtl={false}
+			pauseOnFocusLoss
+			draggable
+			pauseOnHover
+			theme='light'
+			transition={Bounce}
+		/>
+		<App />
+	</BrowserRouter>
 );

@@ -1,5 +1,6 @@
 import { getDatabase, push, ref, set } from 'firebase/database';
 import { Form, Formik, FormikHelpers } from 'formik';
+import { toast } from 'react-toastify';
 import { app } from '../firebase/firebase-config';
 import MyTextInput from './MyTextInput';
 
@@ -21,13 +22,15 @@ const WriteDataBase: React.FC = () => {
 		try {
 			const newDocRef = push(ref(db, 'nature/fruits'));
 			await set(newDocRef, {
-				fruitsName: values.fruitName,
-				fruitsDefination: values.fruitDefination,
+				fruitName: values.fruitName,
+				fruitDefination: values.fruitDefination,
 			});
 			console.log('work');
+			toast.success('Saved');
 			resetForm();
-		} catch (err) {
-			console.error('Error writing document: ', err);
+		} catch (error: any) {
+			console.error('Error writing document: ', error);
+			toast.error(error.message);
 		}
 	};
 	return (
