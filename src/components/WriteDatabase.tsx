@@ -7,11 +7,13 @@ import MyTextInput from './MyTextInput';
 export interface initialValuesInterface {
 	fruitName: string;
 	fruitDefination: string;
+	fruitId?: string;
 }
 
-const initialValues = {
+export const initialValues: initialValuesInterface = {
 	fruitName: '',
 	fruitDefination: '',
+	fruitId: '',
 };
 const WriteDataBase: React.FC = () => {
 	const handlerSubmit = async (

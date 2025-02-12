@@ -1,6 +1,7 @@
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { Form, Formik } from 'formik';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { auth } from '../firebase/firebase-config';
 import { schemaLogin } from '../utils/shema';
@@ -16,6 +17,7 @@ const initialValues: initialValuesInterface = {
 };
 const SignUp: React.FC = () => {
 	const [error, setError] = useState<string | null>(null);
+	const navigete = useNavigate();
 	const handlerLogin = async (
 		values: initialValuesInterface,
 		{ resetForm }: any
@@ -30,6 +32,7 @@ const SignUp: React.FC = () => {
 			console.log(user);
 			toast('🦄 Wow so easy!');
 			resetForm();
+			navigete('/profile');
 		} catch (error) {
 			console.log(error);
 			toast('Sorry we can`t find your account');

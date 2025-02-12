@@ -6,6 +6,7 @@ import Profile from './components/Profile';
 import ReadData from './components/ReadData';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
+import UpdateRead from './components/UpdateRead';
 import WriteDataBase from './components/WriteDatabase';
 
 interface RouteInterface {
@@ -20,6 +21,7 @@ const publicRoutes: RouteInterface[] = [
 	{ path: '/profile', component: Profile },
 	{ path: '/write', component: WriteDataBase },
 	{ path: '/read', component: ReadData },
+	{ path: '/ReadUpdate', component: UpdateRead },
 ];
 
 function App() {
@@ -27,11 +29,9 @@ function App() {
 		<div>
 			<ul className='app__list'>
 				{publicRoutes.map((route, index) => (
-					<li key={index} className='app__link'>
-						<Link className='app__link--text' to={route.path}>
-							{route.component.name}
-						</Link>
-					</li>
+					<Link key={index} to={route.path} className='app__link'>
+						<span className='app__link--text'>{route.component.name}</span>
+					</Link>
 				))}
 			</ul>
 
