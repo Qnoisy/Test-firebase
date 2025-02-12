@@ -7,7 +7,7 @@ import MyTextInput from './MyTextInput';
 export interface initialValuesInterface {
 	fruitName: string;
 	fruitDefination: string;
-	fruitId?: string;
+	fruitId: string;
 }
 
 export const initialValues: initialValuesInterface = {

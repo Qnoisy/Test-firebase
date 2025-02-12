@@ -1,11 +1,13 @@
-import { get, getDatabase, ref } from 'firebase/database';
+import { get, getDatabase, ref, remove } from 'firebase/database';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { app } from '../firebase/firebase-config';
 import { initialValuesInterface } from './WriteDatabase';
 
 const UpdateRead: React.FC = () => {
 	const [fruitsArray, setFruitsArray] = useState<initialValuesInterface[]>([]);
+	const navigate = useNavigate();
 
 	const fetchData = async () => {
 		const db = getDatabase(app);
@@ -27,6 +29,16 @@ const UpdateRead: React.FC = () => {
 			toast.error(`Error: ${err.message}`);
 		}
 	};
+	const deleteFruit = async (myId: string): Promise<void> => {
+		const db = getDatabase(app);
+		const dbRef = ref(db, `nature/fruits/${myId}`);
+		try {
+			await remove(dbRef);
+		} catch (err: any) {
+			console.error('Error deleting document:', err);
+			toast.error(`Error: ${err.message}`);
+		}
+	};
 
 	return (
 		<div className='container'>
@@ -37,6 +49,10 @@ const UpdateRead: React.FC = () => {
 					return (
 						<li key={index}>
 							{fruit.fruitName} - {fruit.fruitDefination} : {fruit.fruitId}
+							<button onClick={() => navigate(`/updateWrite/${fruit.fruitId}`)}>
+								Update
+							</button>
+							<button onClick={() => deleteFruit(fruit.fruitId)}>delete</button>
 						</li>
 					);
 				})}

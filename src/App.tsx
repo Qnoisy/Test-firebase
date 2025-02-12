@@ -7,6 +7,7 @@ import ReadData from './components/ReadData';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import UpdateRead from './components/UpdateRead';
+import UpdateWrite from './components/UpdateWrite';
 import WriteDataBase from './components/WriteDatabase';
 
 interface RouteInterface {
@@ -21,7 +22,7 @@ const publicRoutes: RouteInterface[] = [
 	{ path: '/profile', component: Profile },
 	{ path: '/write', component: WriteDataBase },
 	{ path: '/read', component: ReadData },
-	{ path: '/ReadUpdate', component: UpdateRead },
+	{ path: '/readUpdate', component: UpdateRead },
 ];
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
 				{publicRoutes.map((route, index) => (
 					<Route key={index} path={route.path} element={<route.component />} />
 				))}
+				<Route path='/updateWrite/:id' element={<UpdateWrite />} />
 				<Route path='*' element={<Main />} />
 			</Routes>
 		</div>
