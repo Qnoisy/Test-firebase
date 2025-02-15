@@ -1,14 +1,14 @@
 import { FC } from 'react';
-import { Link, Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import './App.css';
-import Main from './components/main';
-import Profile from './components/Profile';
-import ReadData from './components/ReadData';
-import SignIn from './components/SignIn';
-import SignUp from './components/SignUp';
-import UpdateRead from './components/UpdateRead';
-import UpdateWrite from './components/UpdateWrite';
-import WriteDataBase from './components/WriteDatabase';
+import Profile from './components/auth/Profile';
+import SignIn from './components/auth/SignIn';
+import SignUp from './components/auth/SignUp';
+import ReadFruit from './components/fruitbase/ReadFruit';
+import UpdateFruit from './components/fruitbase/UpdateFruit';
+import UpdateWriteFruit from './components/fruitbase/UpdateWriteFruit';
+import WriteFruit from './components/fruitbase/WriteFruit';
+import Main from './components/Main';
 
 interface RouteInterface {
 	path: string;
@@ -16,23 +16,32 @@ interface RouteInterface {
 }
 
 const publicRoutes: RouteInterface[] = [
-	{ path: '/', component: Main },
+	{ path: '*', component: Main },
 	{ path: '/signIn', component: SignIn },
 	{ path: '/signUp', component: SignUp },
 	{ path: '/profile', component: Profile },
-	{ path: '/write', component: WriteDataBase },
-	{ path: '/read', component: ReadData },
-	{ path: '/readUpdate', component: UpdateRead },
+	{ path: '/writeFruit', component: WriteFruit },
+	{ path: '/readFruit', component: ReadFruit },
+	{ path: '/updateFruit', component: UpdateFruit },
+	// { path: '/writeImage', component: WriteImage },
+	// { path: '/readImage', component: ReadImage },
+	// { path: '/updateImage', component: UpdateImage },
+	// { path: '/updateWriteImage/:id', component: UpdateWriteImage },
 ];
 
 function App() {
+	const navigate = useNavigate();
 	return (
 		<div>
 			<ul className='app__list'>
 				{publicRoutes.map((route, index) => (
-					<Link key={index} to={route.path} className='app__link'>
+					<button
+						key={index}
+						className='app__link'
+						onClick={() => navigate(route.path)}
+					>
 						<span className='app__link--text'>{route.component.name}</span>
-					</Link>
+					</button>
 				))}
 			</ul>
 
@@ -40,8 +49,7 @@ function App() {
 				{publicRoutes.map((route, index) => (
 					<Route key={index} path={route.path} element={<route.component />} />
 				))}
-				<Route path='/updateWrite/:id' element={<UpdateWrite />} />
-				<Route path='*' element={<Main />} />
+				<Route path='/updateWriteFruit/:id' element={<UpdateWriteFruit />} />
 			</Routes>
 		</div>
 	);

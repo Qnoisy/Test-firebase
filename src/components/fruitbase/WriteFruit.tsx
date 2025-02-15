@@ -1,8 +1,8 @@
 import { getDatabase, push, ref, set } from 'firebase/database';
 import { Form, Formik, FormikHelpers } from 'formik';
 import { toast } from 'react-toastify';
-import { app } from '../firebase/firebase-config';
-import MyTextInput from './MyTextInput';
+import { app } from '../../firebase/firebase-config';
+import MyTextInput from '../MyTextInput';
 
 export interface initialValuesInterface {
 	fruitName: string;
@@ -15,7 +15,7 @@ export const initialValues: initialValuesInterface = {
 	fruitDefination: '',
 	fruitId: '',
 };
-const WriteDataBase: React.FC = () => {
+const WriteFruit: React.FC = () => {
 	const handlerSubmit = async (
 		values: initialValuesInterface,
 		{ resetForm }: FormikHelpers<initialValuesInterface>
@@ -53,4 +53,4 @@ const WriteDataBase: React.FC = () => {
 		</Formik>
 	);
 };
-export default WriteDataBase;
+export default WriteFruit;

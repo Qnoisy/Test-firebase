@@ -3,9 +3,9 @@ import { Form, Formik } from 'formik';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { auth } from '../firebase/firebase-config';
-import { schemaLogin } from '../utils/shema';
-import MyTextInput from './MyTextInput';
+import { auth } from '../../firebase/firebase-config';
+import { schemaLogin } from '../../utils/shema';
+import MyTextInput from '../MyTextInput';
 
 interface initialValuesInterface {
 	email: string;

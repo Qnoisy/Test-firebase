@@ -2,10 +2,10 @@ import { get, getDatabase, ref, remove } from 'firebase/database';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { app } from '../firebase/firebase-config';
-import { initialValuesInterface } from './WriteDatabase';
+import { app } from '../../firebase/firebase-config';
+import { initialValuesInterface } from './WriteFruit';
 
-const UpdateRead: React.FC = () => {
+const UpdateFruit: React.FC = () => {
 	const [fruitsArray, setFruitsArray] = useState<initialValuesInterface[]>([]);
 	const navigate = useNavigate();
 
@@ -49,7 +49,9 @@ const UpdateRead: React.FC = () => {
 					return (
 						<li key={index}>
 							{fruit.fruitName} - {fruit.fruitDefination} : {fruit.fruitId}
-							<button onClick={() => navigate(`/updateWrite/${fruit.fruitId}`)}>
+							<button
+								onClick={() => navigate(`/updateWriteFruit/${fruit.fruitId}`)}
+							>
 								Update
 							</button>
 							<button onClick={() => deleteFruit(fruit.fruitId)}>delete</button>
@@ -62,4 +64,4 @@ const UpdateRead: React.FC = () => {
 		</div>
 	);
 };
-export default UpdateRead;
+export default UpdateFruit;

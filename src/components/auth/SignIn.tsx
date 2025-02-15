@@ -5,9 +5,9 @@ import {
 import { Form, Formik } from 'formik';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
-import { auth } from '../firebase/firebase-config';
-import { schema } from '../utils/shema';
-import MyTextInput from './MyTextInput';
+import { auth } from '../../firebase/firebase-config';
+import { schema } from '../../utils/shema';
+import MyTextInput from '../MyTextInput';
 import SignInWithGoogle from './SignInWithGoogle';
 
 interface initialValuesInterface {

@@ -1,10 +1,10 @@
 import { get, getDatabase, ref } from 'firebase/database';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
-import { app } from '../firebase/firebase-config';
-import { initialValuesInterface } from './WriteDatabase';
+import { app } from '../../firebase/firebase-config';
+import { initialValuesInterface } from './WriteFruit';
 
-const ReadData: React.FC = () => {
+const ReadFruit: React.FC = () => {
 	const [fruitsArray, setFruitsArray] = useState<initialValuesInterface[]>([]);
 
 	const fetchData = async () => {
@@ -44,4 +44,4 @@ const ReadData: React.FC = () => {
 		</div>
 	);
 };
-export default ReadData;
+export default ReadFruit;

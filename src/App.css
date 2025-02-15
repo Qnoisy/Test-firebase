@@ -124,9 +124,9 @@ input {
 }
 
 button {
-  margin: 0 auto;
-  width: 200px;
-  padding: 10px;
+  margin: 0.625rem auto 0 auto;
+  width: 7rem;
+  padding: 0.625rem;
   font-size: 16px;
   background-color: #007bff;
   color: white;
@@ -149,6 +149,7 @@ h2 {
 }
 
 .app__link {
+
   margin-top: 10px;
   color: #333;
   cursor: pointer;
@@ -160,6 +161,7 @@ h2 {
 }
 
 .app__link--text {
+  font-size: 0.9rem;
   color: white;
   text-decoration: none;
 }
@@ -178,7 +180,7 @@ h2 {
 }
 
 .container {
-  width: 600px;
+  width: 800px;
   margin: 0 auto;
   text-align: center;
 }

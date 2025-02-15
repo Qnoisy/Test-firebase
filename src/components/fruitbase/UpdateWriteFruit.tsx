@@ -3,15 +3,15 @@ import { Form, Formik, FormikHelpers } from 'formik';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { app } from '../firebase/firebase-config';
-import MyTextInput from './MyTextInput';
+import { app } from '../../firebase/firebase-config';
+import MyTextInput from '../MyTextInput';
 
 export interface InitialValuesInterface {
 	fruitName: string;
 	fruitDefination: string;
 }
 
-const UpdateWrite: React.FC = () => {
+const UpdateWriteFruit: React.FC = () => {
 	const navigate = useNavigate();
 	const { id } = useParams();
 	const [initialValues, setInitialValues] = useState<InitialValuesInterface>({
@@ -81,4 +81,4 @@ const UpdateWrite: React.FC = () => {
 	);
 };
 
-export default UpdateWrite;
+export default UpdateWriteFruit;

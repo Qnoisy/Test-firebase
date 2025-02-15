@@ -1,7 +1,7 @@
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import React from 'react';
 import { toast } from 'react-toastify'; // Добавляем уведомления (опционально)
-import { auth } from '../firebase/firebase-config';
+import { auth } from '../../firebase/firebase-config';
 
 const SignInWithGoogle: React.FC = () => {
 	const provider = new GoogleAuthProvider(); // Создаем провайдера 1 раз
