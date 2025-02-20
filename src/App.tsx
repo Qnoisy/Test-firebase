@@ -8,6 +8,8 @@ import ReadFruit from './components/fruitbase/ReadFruit';
 import UpdateFruit from './components/fruitbase/UpdateFruit';
 import UpdateWriteFruit from './components/fruitbase/UpdateWriteFruit';
 import WriteFruit from './components/fruitbase/WriteFruit';
+import ReadImage from './components/imagebase/ReadImage';
+import WriteImage from './components/imagebase/WriteImage';
 import Main from './components/Main';
 
 interface RouteInterface {
@@ -23,8 +25,8 @@ const publicRoutes: RouteInterface[] = [
 	{ path: '/writeFruit', component: WriteFruit },
 	{ path: '/readFruit', component: ReadFruit },
 	{ path: '/updateFruit', component: UpdateFruit },
-	// { path: '/writeImage', component: WriteImage },
-	// { path: '/readImage', component: ReadImage },
+	{ path: '/writeImage', component: WriteImage },
+	{ path: '/readImage', component: ReadImage },
 	// { path: '/updateImage', component: UpdateImage },
 	// { path: '/updateWriteImage/:id', component: UpdateWriteImage },
 ];
