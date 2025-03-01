@@ -11,11 +11,13 @@ import { app } from '../../firebase/firebase-config';
 import MyFileInput from '../MyFileInput';
 
 export interface InitialImageInterface {
-	imageFile: File | null; // 🔥 Исправленный тип
+	imageId?: string;
+	imageUrl?: string;
+	imageFile?: File | null;
 }
 
 const initialImageValues: InitialImageInterface = {
-	imageFile: null, // 🔥 Теперь `initialValues` соответствует `values`
+	imageFile: null,
 };
 
 const WriteImage: React.FC = () => {
@@ -34,7 +36,7 @@ const WriteImage: React.FC = () => {
 
 	const handlerSubmit = async (
 		values: InitialImageInterface,
-		{ resetForm }: FormikHelpers<InitialImageInterface>
+		{ setFieldValue, resetForm }: FormikHelpers<InitialImageInterface>
 	) => {
 		const db = getDatabase(app);
 		try {
@@ -50,7 +52,10 @@ const WriteImage: React.FC = () => {
 			await set(newDocRef, { imageId: newDocRef.key, imageUrl });
 
 			toast.success('Image uploaded successfully');
-			resetForm(); // 🔥 Теперь resetForm() не вызывает ошибку
+
+			// 🔥 Очищаем поле загрузки после отправки
+			setFieldValue('imageFile', null);
+			resetForm();
 		} catch (error: any) {
 			console.error('Error:', error);
 			toast.error(error.message);
@@ -58,20 +63,22 @@ const WriteImage: React.FC = () => {
 	};
 
 	return (
-		<Formik initialValues={initialImageValues} onSubmit={handlerSubmit}>
-			{({ setFieldValue, isSubmitting }) => (
-				<Form>
-					<MyFileInput
-						label='Choose Image'
-						name='imageFile'
-						setFieldValue={setFieldValue}
-					/>
-					<button type='submit' disabled={isSubmitting}>
-						{isSubmitting ? 'Uploading...' : 'Upload'}
-					</button>
-				</Form>
-			)}
-		</Formik>
+		<div className='container'>
+			<Formik initialValues={initialImageValues} onSubmit={handlerSubmit}>
+				{({ setFieldValue, isSubmitting }) => (
+					<Form>
+						<MyFileInput
+							label='Choose Image'
+							name='imageFile'
+							setFieldValue={setFieldValue}
+						/>
+						<button type='submit' disabled={isSubmitting}>
+							{isSubmitting ? 'Uploading...' : 'Upload'}
+						</button>
+					</Form>
+				)}
+			</Formik>
+		</div>
 	);
 };
 

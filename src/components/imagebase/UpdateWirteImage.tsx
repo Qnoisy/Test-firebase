@@ -1,69 +1,117 @@
-import { getDatabase, ref, remove } from 'firebase/database';
-import { get } from 'http';
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { get, getDatabase, ref, set } from 'firebase/database';
+import {
+	deleteObject,
+	getDownloadURL,
+	getStorage,
+	ref as storageRef,
+	uploadBytes,
+} from 'firebase/storage';
+import { Form, Formik, FormikHelpers } from 'formik';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { app } from '../../firebase/firebase-config';
-import { initialImageInterface } from './WriteImage';
+import MyFileInput from '../MyFileInput';
 
 const UpdateWriteImage: React.FC = () => {
-	const [imagesArray, setImagesArray] = useState<initialImageInterface[]>([]);
+	const { id } = useParams();
 	const navigate = useNavigate();
+	const [currentImage, setCurrentImage] = useState<string | null>(null);
 
-	const fetchData = async () => {
-		const db = getDatabase(app);
+	useEffect(() => {
+		if (!id) return;
 
-		try {
-			const dbRef = ref(db, `list/images`);
-			toast.success('Data loaded successfully');
-			const snapshot = await get(dbRef);
-			if (snapshot.exists()) {
-				const data = Object.entries(snapshot.val()).map(([id, value]) => ({
-					...(value as initialImageInterface),
-					imageId: id,
-				}));
-				setImagesArray(data);
-			} else {
-				toast.warn('No data found');
+		const fetchImage = async () => {
+			const db = getDatabase(app);
+			const dbRef = ref(db, `images/${id}`);
+
+			try {
+				const snapshot = await get(dbRef);
+				if (snapshot.exists()) {
+					setCurrentImage(snapshot.val().imageUrl);
+				} else {
+					toast.warn('No image found');
+				}
+			} catch (err: any) {
+				console.error('Error fetching image:', err.message);
+				toast.error(err.message);
 			}
-		} catch (error: any) {
-			console.error('Error getting documents:', error);
-			toast.error(`Error: ${error.message}`);
+		};
+
+		fetchImage();
+	}, [id]);
+
+	const uploadImage = async (file: File): Promise<string | null> => {
+		try {
+			const storage = getStorage(app);
+			const fileRef = storageRef(storage, `images/${file.name}`);
+			await uploadBytes(fileRef, file);
+			return await getDownloadURL(fileRef);
+		} catch (error) {
+			console.error('Error uploading image:', error);
+			toast.error('Error uploading image');
+			return null;
 		}
 	};
-	const deleteFruit = async (myId: string): Promise<void> => {
+
+	const handlerSubmit = async (
+		values: { imageFile: File | null },
+		{ resetForm }: FormikHelpers<{ imageFile: File | null }>
+	) => {
+		if (!id || !values.imageFile) {
+			toast.error('Invalid image data');
+			return;
+		}
+
 		const db = getDatabase(app);
-		const dbRef = ref(db, `list/images/${myId}`);
+		const storage = getStorage(app);
+		const dbRef = ref(db, `list/images/${id}`);
+
 		try {
-			await remove(dbRef);
-		} catch (err: any) {
-			console.error('Error deleting document:', err);
-			toast.error(`Error: ${err.message}`);
+			// Удаляем старое изображение
+			if (currentImage) {
+				const oldImageRef = storageRef(storage, currentImage);
+				await deleteObject(oldImageRef);
+			}
+
+			// Загружаем новое изображение
+			const imageUrl = await uploadImage(values.imageFile);
+			if (!imageUrl) return;
+
+			// Обновляем запись в БД
+			await set(dbRef, { imageId: id, imageUrl });
+
+			toast.success('Image updated successfully');
+			navigate('/updateImage');
+		} catch (error: any) {
+			console.error('Error updating image:', error);
+			toast.error(error.message);
+		} finally {
+			resetForm();
 		}
 	};
 
 	return (
 		<div className='container'>
-			<h2>ReadData Component</h2>
-			<p>This component is used for reading data from the database.</p>
-			<ul>
-				{imagesArray?.map((image: initialImageInterface, index: number) => {
-					return (
-						<li key={index}>
-							{image.imageData}
-							<button
-								onClick={() => navigate(`/updateWriteImage/${image.imageId}`)}
-							>
-								Update
-							</button>
-							<button onClick={() => deleteFruit(image.imageId)}>delete</button>
-						</li>
-					);
-				})}
-			</ul>
-
-			<button onClick={fetchData}>Get Data</button>
+			<h2>Update Image</h2>
+			{currentImage && <img src={currentImage} alt='Current' width='150' />}
+			<Formik
+				initialValues={{ imageFile: null } as { imageFile: File | null }}
+				onSubmit={handlerSubmit}
+			>
+				{({ setFieldValue }) => (
+					<Form>
+						<MyFileInput
+							label='Select new image'
+							name='imageFile'
+							setFieldValue={setFieldValue}
+						/>
+						<button type='submit'>Update Image</button>
+					</Form>
+				)}
+			</Formik>
 		</div>
 	);
 };
+
 export default UpdateWriteImage;

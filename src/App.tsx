@@ -9,6 +9,8 @@ import UpdateFruit from './components/fruitbase/UpdateFruit';
 import UpdateWriteFruit from './components/fruitbase/UpdateWriteFruit';
 import WriteFruit from './components/fruitbase/WriteFruit';
 import ReadImage from './components/imagebase/ReadImage';
+import UpdateImage from './components/imagebase/UpdateImage';
+import UpdateWriteImage from './components/imagebase/UpdateWirteImage';
 import WriteImage from './components/imagebase/WriteImage';
 import Main from './components/Main';
 
@@ -27,8 +29,7 @@ const publicRoutes: RouteInterface[] = [
 	{ path: '/updateFruit', component: UpdateFruit },
 	{ path: '/writeImage', component: WriteImage },
 	{ path: '/readImage', component: ReadImage },
-	// { path: '/updateImage', component: UpdateImage },
-	// { path: '/updateWriteImage/:id', component: UpdateWriteImage },
+	{ path: '/updateImage', component: UpdateImage },
 ];
 
 function App() {
@@ -52,6 +53,7 @@ function App() {
 					<Route key={index} path={route.path} element={<route.component />} />
 				))}
 				<Route path='/updateWriteFruit/:id' element={<UpdateWriteFruit />} />
+				<Route path='/updateWriteImage/:id' element={<UpdateWriteImage />} />
 			</Routes>
 		</div>
 	);
