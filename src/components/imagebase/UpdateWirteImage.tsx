@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { app } from '../../firebase/firebase-config';
-import MyFileInput from '../MyFileInput';
+import MyFileInput from '../UI/MyFileInput';
 
 const UpdateWriteImage: React.FC = () => {
 	const { id } = useParams();

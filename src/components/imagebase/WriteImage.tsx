@@ -8,7 +8,7 @@ import {
 import { Form, Formik, FormikHelpers } from 'formik';
 import { toast } from 'react-toastify';
 import { app } from '../../firebase/firebase-config';
-import MyFileInput from '../MyFileInput';
+import MyFileInput from '../UI/MyFileInput';
 
 export interface InitialImageInterface {
 	imageId?: string;

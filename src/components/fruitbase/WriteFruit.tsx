@@ -2,7 +2,7 @@ import { getDatabase, push, ref, set } from 'firebase/database';
 import { Form, Formik, FormikHelpers } from 'formik';
 import { toast } from 'react-toastify';
 import { app } from '../../firebase/firebase-config';
-import MyTextInput from '../MyTextInput';
+import MyTextInput from '../UI/MyTextInput';
 
 export interface initialValuesInterface {
 	fruitName: string;

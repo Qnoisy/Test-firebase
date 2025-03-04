@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { auth } from '../../firebase/firebase-config';
 import { schemaLogin } from '../../utils/shema';
-import MyTextInput from '../MyTextInput';
+import MyTextInput from '../UI/MyTextInput';
 
 interface initialValuesInterface {
 	email: string;

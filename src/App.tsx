@@ -1,6 +1,8 @@
 import { FC } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import './App.css';
+import AdminPanel from './components/auth/admins/AdminPanels';
+import AdminRoute from './components/auth/admins/AdminRoute';
 import Profile from './components/auth/Profile';
 import SignIn from './components/auth/SignIn';
 import SignUp from './components/auth/SignUp';
@@ -54,6 +56,9 @@ function App() {
 				))}
 				<Route path='/updateWriteFruit/:id' element={<UpdateWriteFruit />} />
 				<Route path='/updateWriteImage/:id' element={<UpdateWriteImage />} />
+				<Route path='/admin' element={<AdminRoute />}>
+					<Route index element={<AdminPanel />} />
+				</Route>
 			</Routes>
 		</div>
 	);

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { app } from '../../firebase/firebase-config';
-import MyTextInput from '../MyTextInput';
+import MyTextInput from '../UI/MyTextInput';
 
 export interface InitialValuesInterface {
 	fruitName: string;
