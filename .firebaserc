@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "test-7385a"
-  }
+    "default": "test-7385a",
+    "staging": "test-7385a"
+  },
+  "targets": {},
+  "etags": {}
 }
